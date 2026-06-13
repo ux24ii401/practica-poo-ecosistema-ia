@@ -1,53 +1,38 @@
 package com.ia.aplicacion;
 
-// Importamos la clase que está en el otro paquete para poder usarla
-import com.ia.modelos.ModeloIA;
+// Importamos los modelos específicos
+import com.ia.modelos.RedNeuronal;
+import com.ia.modelos.ArbolDecision;
+import com.ia.modelos.ModeloRegresion;
 
 public class SimuladorIA {
     public static void main(String[] args) {
-        System.out.println("=== INICIO DEL SIMULADOR DE IA ===");
+        System.out.println("=== INICIANDO SIMULADOR CON HERENCIA ===");
         System.out.println();
 
-        // 1 Crear los dos objetos de IA
-        ModeloIA modelo1 = new ModeloIA("RedNeuronal", 0.01);
-        ModeloIA modelo2 = new ModeloIA("ArbolDecision", 0.05);
+        // 1. Instanciar un objeto concreto de cada subclase con sus propios parámetros
+        RedNeuronal nn = new RedNeuronal("PerceptronMulticapa", 0.01, 5);
+        ArbolDecision dt = new ArbolDecision("RandomForest", 0.05, 15);
+        ModeloRegresion lr = new ModeloRegresion("RegresionLogistica", 0.1, 0.001);
 
-        // Mostrar cómo inician
-        System.out.println("--- Estado Inicial ---");
-        modelo1.mostrarMetricas();
-        modelo2.mostrarMetricas();
+        System.out.println("--- Estado Inicial de los Modelos Especializados ---");
+        nn.mostrarMetricas();
+        dt.mostrarMetricas();
+        lr.mostrarMetricas();
         System.out.println();
 
-        // 2 Intentar meter un valor inválido para demostrar que el Setter protege el objeto
-        System.out.println("--- Probando Validación del Setter ---");
-        modelo1.setTasaAprendizaje(-0.5); // Esto va a fallar y mandará advertencia
-        modelo2.setTasaAprendizaje(1.5);  // Esto también va a fallar
+        // 2. Ejecutar el método entrenar() heredado del padre en cada uno
+        System.out.println("--- Entrenando Modelos (Uso de métodos heredados) ---");
+        nn.entrenar();
+        dt.entrenar();
+        lr.entrenar();
+
+        // 3. Mostrar métricas para comprobar que imprime lo común + lo específico
+        nn.mostrarMetricas();
+        dt.mostrarMetricas();
+        lr.mostrarMetricas();
+
         System.out.println();
-
-        // 3 Entrenar los modelos paso a paso para ver cómo cambian sus datos de forma segura
-        System.out.println("--- Iniciando Entrenamiento ---");
-
-        System.out.println("Entrenamiento 1:");
-        modelo1.entrenar();
-        modelo2.entrenar();
-        modelo1.mostrarMetricas();
-        modelo2.mostrarMetricas();
-        System.out.println();
-
-        System.out.println("Entrenamiento 2:");
-        modelo1.entrenar();
-        modelo2.entrenar();
-        modelo1.mostrarMetricas();
-        modelo2.mostrarMetricas();
-        System.out.println();
-
-        System.out.println("Entrenamiento 3:");
-        modelo1.entrenar();
-        modelo2.entrenar();
-        modelo1.mostrarMetricas();
-        modelo2.mostrarMetricas();
-        System.out.println();
-
-        System.out.println("=== SIMULACIÓN TERMINADA ===");
+        System.out.println("=== SIMULACIÓN FASE 3 COMPLETADA ===");
     }
 }
