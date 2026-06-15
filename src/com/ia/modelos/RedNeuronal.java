@@ -1,23 +1,28 @@
 package com.ia.modelos;
 
-// Ponemos "extends ModeloIA" para indicar que RedNeuronal hereda de ModeloIA
-public class RedNeuronal extends ModeloIA {
-    // Atributo propio y exclusivo de esta subclase
+import com.ia.interfaces.Entrenable;
+
+// Añadimos "implements Entrenable"
+public class RedNeuronal extends ModeloIA implements Entrenable {
     private int capasOcultas;
 
-    // Constructor
     public RedNeuronal(String nombre, double tasaAprendizaje, int capasOcultas) {
-        // "super" pasa el nombre y la tasa al constructor del padre (ModeloIA)
         super(nombre, tasaAprendizaje);
         this.capasOcultas = capasOcultas;
     }
 
-    // Sobreescribimos el método para agregarle el dato propio
     @Override
     public void mostrarMetricas() {
-        // Llama al método del padre para imprimir los datos comunes
         super.mostrarMetricas();
-        // Imprime el dato específico de la Red Neuronal
         System.out.println("   └─ [Específico] Capas Ocultas: " + this.capasOcultas);
+    }
+
+    // Método polimórfico obligatorio por la interfaz
+    @Override
+    public void ajustarPesos(double tasaAprendizaje) {
+        // Una red neuronal sube su precisión de forma agresiva según la tasa
+        double nuevoAumento = tasaAprendizaje * 150.0;
+        double precisionActual = getPrecision();
+        System.out.println("⚡ [RedNeuronal] Optimizando pesos con tasa " + tasaAprendizaje + ". Precisión previa: " + precisionActual + "%");
     }
 }
