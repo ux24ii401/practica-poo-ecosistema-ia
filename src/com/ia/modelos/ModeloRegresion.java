@@ -1,10 +1,10 @@
 package com.ia.modelos;
 
-public class ModeloRegresion extends ModeloIA {
-    // Atributo propio y exclusivo de esta subclase
+import com.ia.interfaces.Entrenable;
+
+public class ModeloRegresion extends ModeloIA implements Entrenable {
     private double coeficienteRegularizacion;
 
-    // Constructor
     public ModeloRegresion(String nombre, double tasaAprendizaje, double coeficienteRegularizacion) {
         super(nombre, tasaAprendizaje);
         this.coeficienteRegularizacion = coeficienteRegularizacion;
@@ -14,5 +14,12 @@ public class ModeloRegresion extends ModeloIA {
     public void mostrarMetricas() {
         super.mostrarMetricas();
         System.out.println("   └─ [Específico] Coeficiente Regularización: " + this.coeficienteRegularizacion);
+    }
+
+    @Override
+    public void ajustarPesos(double tasaAprendizaje) {
+        // Una regresión calcula su gradiente
+        double precisionActual = getPrecision();
+        System.out.println("📈 [ModeloRegresion] Ajustando gradiente con tasa " + tasaAprendizaje + ". Precisión previa: " + precisionActual + "%");
     }
 }

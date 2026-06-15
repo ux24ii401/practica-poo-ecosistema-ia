@@ -49,3 +49,27 @@ Modelo: RegresionLogistica | Épocas: 1 | Precisión: 55.5% | Tasa: 0.1
 └─ [Específico] Coeficiente Regularización: 0.001
 
 === SIMULACIÓN FASE 3 COMPLETADA ===
+
+Resultado de la Ejecución en Consola (Fase 4)
+
+=== PIPELINE DE SIMULACION POLIMORFICA ===
+
+--- Ejecutando Optimizacion Polimorfica ---
+[RedNeuronal] Optimizando pesos con tasa 0.02. Precision previa: 50.0%
+[ArbolDecision] Podando ramas con tasa 0.02. Precision previa: 50.0%
+[ModeloRegresion] Ajustando gradiente con tasa 0.02. Precision previa: 50.0%
+
+--- Probando Tuberia de Procesamiento de Texto (Tokenizadores) ---
+Salida de TokenizadorBasico:
+-> Token: [el]
+-> Token: [simulador]
+-> Token: [procesar]
+-> Token: [inteligencia]
+
+Salida de TokenizadorHuggingFace (Subpalabras):
+-> Token: [el]
+-> Token: [simul-ador]
+-> Token: [pro-cesar]
+-> Token: [intel-igencia]
+
+=== PIPELINE FINALIZADO CON EXITO ===
