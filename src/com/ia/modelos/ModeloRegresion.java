@@ -13,13 +13,21 @@ public class ModeloRegresion extends ModeloIA implements Entrenable {
     @Override
     public void mostrarMetricas() {
         super.mostrarMetricas();
-        System.out.println("   └─ [Específico] Coeficiente Regularización: " + this.coeficienteRegularizacion);
+        System.out.println("   └─ [Especifico] Coeficiente Regularizacion: " + this.coeficienteRegularizacion);
+    }
+
+    // Implementacion obligatoria del metodo abstracto del padre
+    @Override
+    public void entrenar() {
+        setEpocasEntrenadas(getEpocasEntrenadas() + 1);
+        // Una regresion lineal aumenta de forma mas estandar y fija
+        double nuevaPrecision = getPrecision() + 3.5;
+        if (nuevaPrecision > 100.0) nuevaPrecision = 100.0;
+        setPrecision(nuevaPrecision);
     }
 
     @Override
     public void ajustarPesos(double tasaAprendizaje) {
-        // Una regresión calcula su gradiente
-        double precisionActual = getPrecision();
-        System.out.println("📈 [ModeloRegresion] Ajustando gradiente con tasa " + tasaAprendizaje + ". Precisión previa: " + precisionActual + "%");
+        System.out.println("[ModeloRegresion] Ajustando gradiente con tasa " + tasaAprendizaje + ". Precision previa: " + getPrecision() + "%");
     }
 }
