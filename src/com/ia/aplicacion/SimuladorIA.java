@@ -1,5 +1,12 @@
 package com.ia.aplicacion;
 
+// Importamos el framework de colecciones de Java
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+// Importamos las interfaces y modelos de tus otros paquetes
 import com.ia.interfaces.Tokenizador;
 import com.ia.modelos.ModeloIA;
 import com.ia.modelos.RedNeuronal;
@@ -8,46 +15,56 @@ import com.ia.modelos.ModeloRegresion;
 
 public class SimuladorIA {
     public static void main(String[] args) {
-        System.out.println("=== SIMULADOR CON CLASES ABSTRACTAS ===\n");
+        System.out.println("=== SIMULADOR CON JAVA COLLECTIONS FRAMEWORK ===\n");
 
-        // VALIDACION DE LA ABSTRACCION:
-        // Si quitas las dos barras de la linea de abajo, veras que da un error rojo
-        // porque Java prohibe crear instancias directas de una clase abstracta:
-        // ModeloIA modeloPrueba = new ModeloIA("Generico", 0.1);
+        // 1. Administracion Dinamica de Modelos (List)
+        List<ModeloIA> inventarioModelos = new ArrayList<>();
 
-        // 1. Uso de Referencias Abstractas (Arreglo del padre abstracto)
-        ModeloIA[] listaModelos = new ModeloIA[3];
-        listaModelos[0] = new RedNeuronal("PerceptronMulticapa", 0.01, 6);
-        listaModelos[1] = new ArbolDecision("RandomForest", 0.05, 10);
-        listaModelos[2] = new ModeloRegresion("RegresionLogistica", 0.1, 0.002);
+        // Agregamos los modelos dinamicamente sin preocuparnos por un tamaño fijo
+        inventarioModelos.add(new RedNeuronal("PerceptronMulticapa", 0.01, 8));
+        inventarioModelos.add(new ArbolDecision("RandomForest", 0.05, 12));
+        inventarioModelos.add(new ModeloRegresion("RegresionLogistica", 0.1, 0.005));
 
-        // 2. Ejecutar entrenamiento dirigido por la clase abstracta
-        System.out.println("--- Ejecutando Entrenamiento Desde Estructura Abstracta ---");
-        for (ModeloIA modelo : listaModelos) {
-            modelo.entrenar(); // Llama al metodo abstracto resuelto por cada hijo
+        // Recorremos la lista para entrenar y mostrar metricas
+        System.out.println("--- Entrenando Modelos en la Lista Dinamica ---");
+        for (ModeloIA modelo : inventarioModelos) {
+            modelo.entrenar();
             modelo.mostrarMetricas();
             System.out.println();
         }
 
-        // 3. Procesamiento de texto usando la interfaz abstracta Tokenizador
-        System.out.println("--- Pipeline de Tokenizacion ---");
-        String texto = "el simulador procesar inteligencia";
+        // 2. Catalogo Indexado de Procesadores (Map)
+        Map<String, Tokenizador> catalogoTokenizadores = new HashMap<>();
 
-        Tokenizador miTokenizador = new TokenizadorBasico();
-        System.out.println("Salida de TokenizadorBasico:");
-        String[] tokensB = miTokenizador.dividirTexto(texto);
-        for (String t : tokensB) {
-            System.out.println(" -> Token: [" + t + "]");
+        // Registramos los componentes con una clave unica
+        catalogoTokenizadores.put("BASICO", new TokenizadorBasico());
+        catalogoTokenizadores.put("HUGGING_FACE", new TokenizadorHuggingFace());
+
+        System.out.println("--- Recuperacion de Tokenizador desde Catalogo Indexado ---");
+        String textoPrueba = "el simulador procesar inteligencia";
+
+        // Recuperamos directamente del mapa usando la clave, sin usar condicionales if/else
+        Tokenizador tokenizadorElegido = catalogoTokenizadores.get("HUGGING_FACE");
+
+        if (tokenizadorElegido != null) {
+            System.out.println("Salida del procesador recuperado [HUGGING_FACE]:");
+            String[] tokens = tokenizadorElegido.dividirTexto(textoPrueba);
+            for (String t : tokens) {
+                System.out.println(" -> Token: [" + t + "]");
+            }
         }
         System.out.println();
 
-        miTokenizador = new TokenizadorHuggingFace();
-        System.out.println("Salida de TokenizadorHuggingFace:");
-        String[] tokensH = miTokenizador.dividirTexto(texto);
-        for (String t : tokensH) {
-            System.out.println(" -> Token: [" + t + "]");
+        // 3. Operaciones Avanzadas (Regla de negocio: Filtrado por umbral de precision)
+        double umbralPrecision = 55.0;
+        System.out.println("--- Filtrado Avanzado: Modelos con Precision > " + umbralPrecision + "% ---");
+
+        for (ModeloIA modelo : inventarioModelos) {
+            if (modelo.getPrecision() > umbralPrecision) {
+                System.out.println(" -> " + modelo.getNombre() + " supero el umbral. Precision: " + modelo.getPrecision() + "%");
+            }
         }
 
-        System.out.println("\n=== FIN DE LA SIMULACION ===");
+        System.out.println("\n=== SIMULACION COMPLETA TERMINADA ===");
     }
 }

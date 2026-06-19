@@ -101,3 +101,38 @@ Salida de TokenizadorHuggingFace:
 -> Token: [intel-igencia]
 
 === FIN DE LA SIMULACION ===
+
+Fase 6: Módulo de Gestión de Colecciones Dinámicas
+Ventajas del Framework de Colecciones
+La refactorización de arreglos estáticos a estructuras de Java Collections Framework aporta mejoras clave en la arquitectura:
+
+Escalabilidad de Modelos (List): El uso de ArrayList elimina la restricción de definir un tamaño rígido inicial. Permite que el ecosistema añada o elimine modelos de inteligencia artificial de forma dinámica en tiempo de ejecución, optimizando el uso de la memoria.
+
+Mantenibilidad y Desacoplamiento (Map): Centralizar los procesadores de texto en un HashMap (catálogo) permite indexar componentes mediante claves semánticas de texto. Esto evita el uso de condicionales duros (if/else anidados) y facilita la inyección o intercambio de estrategias de tokenización de manera limpia.
+
+Flexibilidad de Operaciones: Las colecciones facilitan tareas de ordenamiento, filtrado y búsqueda estructurada (como el algoritmo de umbral de precisión aplicado), aumentando la legibilidad del código fuente.
+
+Resultado de la Ejecución en Consola (Fase 6)
+=== SIMULADOR CON JAVA COLLECTIONS FRAMEWORK ===
+
+--- Entrenando Modelos en la Lista Dinamica ---
+Modelo: PerceptronMulticapa | Epocas: 1 | Precision: 58.0% | Tasa: 0.01
+└─ [Especifico] Capas Ocultas: 8
+
+Modelo: RandomForest | Epocas: 1 | Precision: 54.4% | Tasa: 0.05
+└─ [Especifico] Profundidad Maxima: 12
+
+Modelo: RegresionLogistica | Epocas: 1 | Precision: 53.5% | Tasa: 0.1
+└─ [Especifico] Coeficiente Regularizacion: 0.005
+
+--- Recuperacion de Tokenizador desde Catalogo Indexado ---
+Salida del procesador recuperado [HUGGING_FACE]:
+-> Token: [el]
+-> Token: [simul-ador]
+-> Token: [pro-cesar]
+-> Token: [intel-igencia]
+
+--- Filtrado Avanzado: Modelos con Precision > 55.0% ---
+-> PerceptronMulticapa supero el umbral. Precision: 58.0%
+
+=== SIMULACION COMPLETA TERMINADA ===
