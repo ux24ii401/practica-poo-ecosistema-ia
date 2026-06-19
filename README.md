@@ -73,3 +73,31 @@ Salida de TokenizadorHuggingFace (Subpalabras):
 -> Token: [intel-igencia]
 
 === PIPELINE FINALIZADO CON EXITO ===
+
+Resultado de la Ejecución en Consola (Fase 5)
+=== SIMULADOR CON CLASES ABSTRACTAS ===
+
+--- Ejecutando Entrenamiento Desde Estructura Abstracta ---
+Modelo: PerceptronMulticapa | Epocas: 1 | Precision: 57.0% | Tasa: 0.01
+└─ [Especifico] Capas Ocultas: 6
+
+Modelo: RandomForest | Epocas: 1 | Precision: 54.0% | Tasa: 0.05
+└─ [Especifico] Profundidad Maxima: 10
+
+Modelo: RegresionLogistica | Epocas: 1 | Precision: 53.5% | Tasa: 0.1
+└─ [Especifico] Coeficiente Regularizacion: 0.002
+
+--- Pipeline de Tokenizacion ---
+Salida de TokenizadorBasico:
+-> Token: [el]
+-> Token: [simulador]
+-> Token: [procesar]
+-> Token: [inteligencia]
+
+Salida de TokenizadorHuggingFace:
+-> Token: [el]
+-> Token: [simul-ador]
+-> Token: [pro-cesar]
+-> Token: [intel-igencia]
+
+=== FIN DE LA SIMULACION ===
