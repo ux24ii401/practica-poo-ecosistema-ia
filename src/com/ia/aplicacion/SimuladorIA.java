@@ -1,70 +1,67 @@
 package com.ia.aplicacion;
 
-// Importamos el framework de colecciones de Java
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// Importamos las interfaces y modelos de tus otros paquetes
 import com.ia.interfaces.Tokenizador;
 import com.ia.modelos.ModeloIA;
 import com.ia.modelos.RedNeuronal;
 import com.ia.modelos.ArbolDecision;
 import com.ia.modelos.ModeloRegresion;
+// Importamos la excepcion personalizada
+import com.ia.exceptions.IAComponentException;
 
 public class SimuladorIA {
     public static void main(String[] args) {
-        System.out.println("=== SIMULADOR CON JAVA COLLECTIONS FRAMEWORK ===\n");
+        System.out.println("=== SIMULADOR CON MANEJO DE EXCEPCIONES ===\n");
 
-        // 1. Administracion Dinamica de Modelos (List)
+        // Inicializacion de colecciones basicas
         List<ModeloIA> inventarioModelos = new ArrayList<>();
-
-        // Agregamos los modelos dinamicamente sin preocuparnos por un tamaño fijo
-        inventarioModelos.add(new RedNeuronal("PerceptronMulticapa", 0.01, 8));
-        inventarioModelos.add(new ArbolDecision("RandomForest", 0.05, 12));
-        inventarioModelos.add(new ModeloRegresion("RegresionLogistica", 0.1, 0.005));
-
-        // Recorremos la lista para entrenar y mostrar metricas
-        System.out.println("--- Entrenando Modelos en la Lista Dinamica ---");
-        for (ModeloIA modelo : inventarioModelos) {
-            modelo.entrenar();
-            modelo.mostrarMetricas();
-            System.out.println();
-        }
-
-        // 2. Catalogo Indexado de Procesadores (Map)
         Map<String, Tokenizador> catalogoTokenizadores = new HashMap<>();
 
-        // Registramos los componentes con una clave unica
         catalogoTokenizadores.put("BASICO", new TokenizadorBasico());
         catalogoTokenizadores.put("HUGGING_FACE", new TokenizadorHuggingFace());
 
-        System.out.println("--- Recuperacion de Tokenizador desde Catalogo Indexado ---");
-        String textoPrueba = "el simulador procesar inteligencia";
+        // BLOQUE TRY: Aqui corre el flujo principal propenso a fallas
+        try {
+            System.out.println("--- Cargando Componentes Validos ---");
+            inventarioModelos.add(new RedNeuronal("PerceptronMulticapa", 0.01, 8));
+            inventarioModelos.add(new ArbolDecision("RandomForest", 0.05, 12));
 
-        // Recuperamos directamente del mapa usando la clave, sin usar condicionales if/else
-        Tokenizador tokenizadorElegido = catalogoTokenizadores.get("HUGGING_FACE");
+            // PRUEBA DE ROBUSTEZ 1: Intentar buscar una clave inexistente en el catalogo
+            System.out.println("--- Buscando Procesador en Catalogo ---");
+            String claveBuscada = "OPEN_AI";
+            Tokenizador tokenizadorElegido = catalogoTokenizadores.get(claveBuscada);
 
-        if (tokenizadorElegido != null) {
-            System.out.println("Salida del procesador recuperado [HUGGING_FACE]:");
-            String[] tokens = tokenizadorElegido.dividirTexto(textoPrueba);
-            for (String t : tokens) {
-                System.out.println(" -> Token: [" + t + "]");
+            // Si el mapa devuelve null, disparamos nuestra excepcion personalizada
+            if (tokenizadorElegido == null) {
+                throw new IAComponentException("Error: El componente de procesamiento solicitado [" + claveBuscada + "] no esta registrado.");
             }
+
+            // Nota: El codigo de aqui abajo no se ejecutara si la linea de arriba lanza la excepcion
+            System.out.println("Procesando texto con componente seleccionado...");
+
+        } catch (IAComponentException e) {
+            // CATCH: Captura el error de forma precisa y muestra un reporte elegante sin detener el programa
+            System.out.println("\n[REPORTE DE FALLO CONTROLADO]");
+            System.out.println("Detalle del error: " + e.getMessage());
+            System.out.println("Accion: Saltando proceso afectado y continuando ejecucion de forma segura.\n");
+
+        } finally {
+            // FINALLY: Se ejecuta SI O SI, haya ocurrido un error o no
+            System.out.println("--- Bloque Finally: Fase de auditoria y limpieza concluida con exito. ---");
         }
-        System.out.println();
 
-        // 3. Operaciones Avanzadas (Regla de negocio: Filtrado por umbral de precision)
-        double umbralPrecision = 55.0;
-        System.out.println("--- Filtrado Avanzado: Modelos con Precision > " + umbralPrecision + "% ---");
-
+        // Demostracion de resiliencia: El programa continua vivo fuera del bloque try-catch
+        System.out.println("\n--- Continuacion del Flujo del Sistema (Resiliencia) ---");
+        System.out.println("El programa principal no se cerro de golpe y sigue operativo.");
         for (ModeloIA modelo : inventarioModelos) {
-            if (modelo.getPrecision() > umbralPrecision) {
-                System.out.println(" -> " + modelo.getNombre() + " supero el umbral. Precision: " + modelo.getPrecision() + "%");
-            }
+            modelo.entrenar();
+            modelo.mostrarMetricas();
         }
 
-        System.out.println("\n=== SIMULACION COMPLETA TERMINADA ===");
+        System.out.println("\n=== SIMULACION COMPLETADA TERMINADA ===");
     }
 }

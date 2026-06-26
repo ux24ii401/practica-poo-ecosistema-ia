@@ -1,6 +1,8 @@
 package com.ia.modelos;
 
-// Añadimos "abstract" para que ya no se pueda instanciar directamente
+// Importamos la excepcion personalizada
+import com.ia.exceptions.IAComponentException;
+
 public abstract class ModeloIA {
     private String nombre;
     private double precision;
@@ -14,7 +16,6 @@ public abstract class ModeloIA {
         setTasaAprendizaje(tasaAprendizaje);
     }
 
-    // Getters y Setters se quedan exactamente igual
     public String getNombre() { return this.nombre; }
     public double getPrecision() { return this.precision; }
     public void setPrecision(double precision) { this.precision = precision; }
@@ -22,16 +23,16 @@ public abstract class ModeloIA {
     public void setEpocasEntrenadas(int epocas) { this.epocasEntrenadas = epocas; }
     public double getTasaAprendizaje() { return this.tasaAprendizaje; }
 
+    // REFACTORIZACION CON THROW:
     public void setTasaAprendizaje(double tasa) {
         if (tasa > 0.0 && tasa < 1.0) {
             this.tasaAprendizaje = tasa;
         } else {
-            System.out.println("ADVERTENCIA: La tasa " + tasa + " no es valida para " + this.nombre + ". Se mantiene el valor anterior.");
+            // Lanzamos explicitamente el error en lugar de imprimir texto suelto
+            throw new IAComponentException("Error: La tasa de aprendizaje " + tasa + " esta fuera del rango permitido (0.0 - 1.0).");
         }
     }
 
-    // EL CAMBIO CLAVE: El metodo ahora es abstracto y termina en punto y coma
-    // Cada hijo estara obligado a darle su propio comportamiento
     public abstract void entrenar();
 
     public void mostrarMetricas() {
