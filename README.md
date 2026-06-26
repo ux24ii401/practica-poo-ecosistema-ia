@@ -136,3 +136,24 @@ Salida del procesador recuperado [HUGGING_FACE]:
 -> PerceptronMulticapa supero el umbral. Precision: 58.0%
 
 === SIMULACION COMPLETA TERMINADA ===
+
+Resultado de la Ejecución en Consola (Fase 7)
+=== SIMULADOR CON MANEJO DE EXCEPCIONES ===
+
+--- Cargando Componentes Validos ---
+--- Buscando Procesador en Catalogo ---
+
+[REPORTE DE FALLO CONTROLADO]
+Detalle del error: Error: El componente de procesamiento solicitado [OPEN_AI] no esta registrado.
+Accion: Saltando proceso afectado y continuando ejecucion de forma segura.
+
+--- Bloque Finally: Fase de auditoria y limpieza concluida con exito. ---
+
+--- Continuacion del Flujo del Sistema (Resiliencia) ---
+El programa principal no se cerro de golpe y sigue operativo.
+Modelo: PerceptronMulticapa | Epocas: 1 | Precision: 58.0% | Tasa: 0.01
+└─ [Especifico] Capas Ocultas: 8
+Modelo: RandomForest | Epocas: 1 | Precision: 54.4% | Tasa: 0.05
+└─ [Especifico] Profundidad Maxima: 12
+
+=== SIMULACION COMPLETA TERMINADA ===
