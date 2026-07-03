@@ -157,3 +157,28 @@ Modelo: RandomForest | Epocas: 1 | Precision: 54.4% | Tasa: 0.05
 └─ [Especifico] Profundidad Maxima: 12
 
 === SIMULACION COMPLETA TERMINADA ===
+
+Fase 8: Módulo de Modernización Java 17 y Calidad de Código
+Modernización Estructural
+La migración hacia Java 17 optimizó el rendimiento y la legibilidad mediante los siguientes paradigmas:
+
+Inmutabilidad con Records: La estructura PromptInput simplificó la transferencia de datos inmutables hacia el pipeline de ejecución, eliminando el boilerplate redundante (getters, toString) y garantizando que las consultas no sean modificadas externamente.
+
+Control de Jerarquías (Sealed Classes): Al sellar la clase abstracta ModeloIA se restringe de forma arquitectónica qué algoritmos pueden ser parte del simulador, eliminando extensiones arbitrarias no seguras.
+
+Sintaxis Expresiva: Las Switch Expressions redujeron la propensión a errores omitiendo la palabra clave break y convirtiendo las sentencias de control en asignaciones directas y limpias.
+
+Resultado de la Ejecución en Consola (Fase 8)
+=== SIMULADOR MODERNIZADO A JAVA 17 ===
+
+--- Cargando Modelos en la Jerarquia Controlada (Sealed) ---
+--- Seleccionando Tokenizador mediante Switch Expression ---
+Procesando consulta del Record:
+-> Token: [el]
+-> Token: [simul-ador]
+-> Token: [pro-cesar]
+-> Token: [intel-igencia]
+
+--- Bloque Finally: Auditoria del sistema concluida con exito. ---
+
+=== SIMULACION COMPLETA TERMINADA ===
