@@ -136,3 +136,49 @@ Salida del procesador recuperado [HUGGING_FACE]:
 -> PerceptronMulticapa supero el umbral. Precision: 58.0%
 
 === SIMULACION COMPLETA TERMINADA ===
+
+Resultado de la Ejecución en Consola (Fase 7)
+=== SIMULADOR CON MANEJO DE EXCEPCIONES ===
+
+--- Cargando Componentes Validos ---
+--- Buscando Procesador en Catalogo ---
+
+[REPORTE DE FALLO CONTROLADO]
+Detalle del error: Error: El componente de procesamiento solicitado [OPEN_AI] no esta registrado.
+Accion: Saltando proceso afectado y continuando ejecucion de forma segura.
+
+--- Bloque Finally: Fase de auditoria y limpieza concluida con exito. ---
+
+--- Continuacion del Flujo del Sistema (Resiliencia) ---
+El programa principal no se cerro de golpe y sigue operativo.
+Modelo: PerceptronMulticapa | Epocas: 1 | Precision: 58.0% | Tasa: 0.01
+└─ [Especifico] Capas Ocultas: 8
+Modelo: RandomForest | Epocas: 1 | Precision: 54.4% | Tasa: 0.05
+└─ [Especifico] Profundidad Maxima: 12
+
+=== SIMULACION COMPLETA TERMINADA ===
+
+Fase 8: Módulo de Modernización Java 17 y Calidad de Código
+Modernización Estructural
+La migración hacia Java 17 optimizó el rendimiento y la legibilidad mediante los siguientes paradigmas:
+
+Inmutabilidad con Records: La estructura PromptInput simplificó la transferencia de datos inmutables hacia el pipeline de ejecución, eliminando el boilerplate redundante (getters, toString) y garantizando que las consultas no sean modificadas externamente.
+
+Control de Jerarquías (Sealed Classes): Al sellar la clase abstracta ModeloIA se restringe de forma arquitectónica qué algoritmos pueden ser parte del simulador, eliminando extensiones arbitrarias no seguras.
+
+Sintaxis Expresiva: Las Switch Expressions redujeron la propensión a errores omitiendo la palabra clave break y convirtiendo las sentencias de control en asignaciones directas y limpias.
+
+Resultado de la Ejecución en Consola (Fase 8)
+=== SIMULADOR MODERNIZADO A JAVA 17 ===
+
+--- Cargando Modelos en la Jerarquia Controlada (Sealed) ---
+--- Seleccionando Tokenizador mediante Switch Expression ---
+Procesando consulta del Record:
+-> Token: [el]
+-> Token: [simul-ador]
+-> Token: [pro-cesar]
+-> Token: [intel-igencia]
+
+--- Bloque Finally: Auditoria del sistema concluida con exito. ---
+
+=== SIMULACION COMPLETA TERMINADA ===
